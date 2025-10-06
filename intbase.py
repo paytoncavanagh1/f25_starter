@@ -23,7 +23,7 @@ class InterpreterBase:
     BOOL_NODE = "bool"
     STRING_NODE = "string"
     FCALL_NODE = "fcall"
-    QUALIFIED_NAME_NODE = "qname"   # var_name, var1.var2.var3, funcname
+    QUALIFIED_NAME_NODE = "qname"  # var_name, var1.var2.var3, funcname
     NOT_NODE = "!"
     VAR_DEF_NODE = "vardef"
     BVAR_DEF_NODE = "bvardef"
@@ -34,12 +34,13 @@ class InterpreterBase:
     INTERFACE_NODE = "interface"
     FIELD_FUNC_NODE = "field_func"
     FIELD_VAR_NODE = "field_var"
+    ASSIGNMENT_NODE = "="
 
     # other constants
     TRUE_DEF = "true"
     FALSE_DEF = "false"
     NIL_DEF = "nil"
-    
+
     # methods
     def __init__(self, console_output=True, inp=None):
         self.console_output = console_output
