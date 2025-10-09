@@ -10,7 +10,7 @@ This repository provides:
 - Your Gradescope submission should contain `interpretervX.py` and optionally any additional files YOU wrote (not the base files) that it rely on to run.
 - You should maintain a copy of your local git history and commit to it regularly as you work. Although this is not required for submission, we reserve the right to ask you to submit this at any time if we suspect foul play.
 - A few days after each project deadline, we will upload a reference solution to THIS repository. We recommend you do the next part building on your own code, but you are free to build on the reference solution from the previous project if you wish.
-- Use Python>=3.12, or you will very likely run into weird issues!
+- You will be graded using Python 3.11. Use Python 3.12 if you want to use the plotting feature.
 
 ### For These Files:
 ```
