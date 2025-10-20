@@ -5,7 +5,6 @@ from brewparse import parse_program
 class Interpreter(InterpreterBase):
     def __init__(self, console_output=True, inp=None, trace_output=False):
         super().__init__(console_output, inp)   # call InterpreterBase's constructor
-        self.variable_name_to_value = {}
 
     def get_main_func_node(self, ast):
         func_nodes = ast.get("functions")
@@ -20,7 +19,7 @@ class Interpreter(InterpreterBase):
 
     def run(self, program):
         ast = parse_program(program)         # parse program and outputs AST
-        # self.variable_name_to_value = {}  # dict to hold variables
+        self.variable_name_to_value = {}  # dict to hold variables
         main_func_node = self.get_main_func_node(ast)
         print("main function node --> ", main_func_node, " <--")
         self.run_func(main_func_node)
