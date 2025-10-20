@@ -5,6 +5,7 @@ from brewparse import parse_program
 class Interpreter(InterpreterBase):
     def __init__(self, console_output=True, inp=None, trace_output=False):
         super().__init__(console_output, inp)   # call InterpreterBase's constructor
+        self.variable_name_to_value = {}
 
     def get_main_func_node(self, ast):
         func_nodes = ast.get("functions")
@@ -19,15 +20,13 @@ class Interpreter(InterpreterBase):
 
     def run(self, program):
         ast = parse_program(program)         # parse program and outputs AST
-        self.variable_name_to_value = {}  # dict to hold variables
+        # self.variable_name_to_value = {}  # dict to hold variables
         main_func_node = self.get_main_func_node(ast)
-        print("main function node --> ", main_func_node, " <--")
         self.run_func(main_func_node)
 
     def run_func(self, func_node):
         for statement_node in func_node.get("statements"):
             self.run_statement(statement_node)
-            print("Statement node --> ", statement_node, "\nstatement node.get --> ", statement_node.get("name"))
 
     def run_statement(self, statement_node):
         if self.is_definition(statement_node):
@@ -165,19 +164,29 @@ class Interpreter(InterpreterBase):
                             f"Variable {var_name} has not been defined",
                         )
                 else:
-                    final_str += str(arg.get("val"))
+                    val = self.expression_evaluater(arg)
+                    final_str += str(val)
                     
             self.output(final_str)
-
         elif statement_node.get("name") == "inputi":
             arg_list = statement_node.get("args")
             
-            for arg in arg_list:
-                final_str += str((arg.get("val")))
-                self.output(final_str)
-                return self.get_input()
+            # for arg in arg_list:
+            if len(arg_list) == 0:
+                return int(self.get_input())
+            elif len(arg_list) == 1:
+                val = self.expression_evaluater(arg_list[0])
+                # final_str += str(val)
+                self.output(str(val))
+                return int(self.get_input())
+            else:
+                super().error(
+                    ErrorType.NAME_ERROR,
+                    f"No inputi() function found that takes > 1 parameter",
+                )
         else:
+            random_func = statement_node.get("name")
             super().error(
                 ErrorType.NAME_ERROR,
-                f"Function {statement_node.get("name")} has not been defined",
+                f"Function {random_func} has not been defined",
             )
